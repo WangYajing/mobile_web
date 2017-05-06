@@ -34,5 +34,16 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>STXINWEI.ttf</string>
+		<string>PingFang.ttc</string>
+	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>123</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>456</string>
+	<key>NSLocationUsageDescription</key>
+	<string>djdjdjjdjd</string>
 </dict>
 </plist>
