@@ -44,14 +44,15 @@
     WYJLocationManager *manager = [WYJLocationManager sharedLocationManager];
     manager.updateLocationHandler = ^(NSError *error, NSDictionary *address) {
         if (!error) {
-            NSString *cityName = address[@"SubLocality"];
-            self.navigationItem.title = cityName;
-            NSString *city = [cityName substringToIndex:cityName.length - 1];
+            NSString *subLocality = address[@"SubLocality"];
+            NSString *city = address[@"City"];
+            self.navigationItem.title = subLocality;
+            NSString *cityID = [subLocality substringToIndex:subLocality.length - 1];
             [DownLoadData getRealTimeDataWithBlock:^(NSArray *obj, NSError *error) {
                 WYJRealTimeInfo *realTime = obj[0];
                 self.forecastView.forecasts = obj[1];
                 [self refreshUIWithRealTimeInfo:realTime];
-            } andCityID:city];
+            } andCityID:cityID];
         }
     };
     [manager startUpdateLocation];

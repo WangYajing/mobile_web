@@ -43,28 +43,28 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="344.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cond" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPr-ZM-Tb1">
-                                        <rect key="frame" x="127" y="241.5" width="120" height="34.5"/>
+                                        <rect key="frame" x="127" y="248.5" width="120" height="38"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                         <color key="textColor" red="0.27843137254901962" green="0.22352941176470587" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uFf-pf-vMs">
-                                        <rect key="frame" x="128" y="173" width="120" height="34.5"/>
+                                        <rect key="frame" x="128" y="173" width="120" height="38"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="dGe-XD-ErY"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7I-cu-zJt">
-                                        <rect key="frame" x="127.5" y="207.5" width="120" height="34"/>
+                                        <rect key="frame" x="127.5" y="211" width="120" height="37.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <color key="textColor" red="0.28627450980392155" green="0.19215686274509802" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="aqi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dp-Sb-EMR" customClass="WYJAqiLabel">
-                                        <rect key="frame" x="128" y="286" width="120" height="33.5"/>
+                                        <rect key="frame" x="140" y="296.5" width="96" height="23"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -82,13 +82,13 @@
                                     <constraint firstItem="F7I-cu-zJt" firstAttribute="centerX" secondItem="8t7-n3-AO6" secondAttribute="centerX" id="6ii-XJ-W4m"/>
                                     <constraint firstItem="uFf-pf-vMs" firstAttribute="top" secondItem="ht6-PL-OuK" secondAttribute="bottom" constant="20" id="AMk-N0-lXP"/>
                                     <constraint firstItem="3dp-Sb-EMR" firstAttribute="centerX" secondItem="8t7-n3-AO6" secondAttribute="centerX" id="CU0-TZ-AVo"/>
-                                    <constraint firstItem="3dp-Sb-EMR" firstAttribute="width" secondItem="uFf-pf-vMs" secondAttribute="width" id="FCh-2T-LzL"/>
+                                    <constraint firstItem="3dp-Sb-EMR" firstAttribute="width" secondItem="uFf-pf-vMs" secondAttribute="width" multiplier="0.8" id="FCh-2T-LzL"/>
                                     <constraint firstItem="F7I-cu-zJt" firstAttribute="top" secondItem="uFf-pf-vMs" secondAttribute="bottom" id="PAc-3w-3RI"/>
                                     <constraint firstItem="ht6-PL-OuK" firstAttribute="top" secondItem="8t7-n3-AO6" secondAttribute="top" constant="33" id="QNl-Bg-8QG"/>
                                     <constraint firstItem="F7I-cu-zJt" firstAttribute="height" secondItem="uFf-pf-vMs" secondAttribute="height" id="R9X-eS-NWg"/>
                                     <constraint firstAttribute="bottom" secondItem="3dp-Sb-EMR" secondAttribute="bottom" constant="25" id="TQE-Hq-tMM"/>
                                     <constraint firstItem="CPr-ZM-Tb1" firstAttribute="top" secondItem="F7I-cu-zJt" secondAttribute="bottom" id="Y4m-lG-VJT"/>
-                                    <constraint firstItem="3dp-Sb-EMR" firstAttribute="height" secondItem="uFf-pf-vMs" secondAttribute="height" id="baw-aY-Bgc"/>
+                                    <constraint firstItem="3dp-Sb-EMR" firstAttribute="height" secondItem="uFf-pf-vMs" secondAttribute="height" multiplier="0.6" id="baw-aY-Bgc"/>
                                     <constraint firstItem="CPr-ZM-Tb1" firstAttribute="height" secondItem="uFf-pf-vMs" secondAttribute="height" id="br9-AX-z2M"/>
                                     <constraint firstItem="F7I-cu-zJt" firstAttribute="width" secondItem="uFf-pf-vMs" secondAttribute="width" id="d5R-GN-GgJ"/>
                                     <constraint firstItem="ht6-PL-OuK" firstAttribute="centerX" secondItem="8t7-n3-AO6" secondAttribute="centerX" id="kVf-5l-JOL"/>
@@ -100,7 +100,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8d9-TW-CAh" customClass="WYJForecastView">
                                 <rect key="frame" x="0.0" y="344.5" width="375" height="258.5"/>
-                                <color key="backgroundColor" red="0.9335144353" green="0.9335144353" blue="0.9335144353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.96470588239999999" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <constraints>

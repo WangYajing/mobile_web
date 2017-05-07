@@ -62,8 +62,12 @@ static DownLoadData *instance = nil;
             NSString *dateString = obj[@"date"];
             NSString *date = [WYJDateManager transformDateToFomat:@"M.d" formFormat:@"yyyy-MM-dd" DateString:dateString];
             NSString *weekday   = [WYJDateManager transformDateToFomat:@"EEE" formFormat:@"yyyy-MM-dd" DateString:dateString];
+            if (idx == 0) {
+                forecast.weekday = @"今天";
+            } else {
+               forecast.weekday    = weekday;
+            }
             forecast.date       = date;
-            forecast.weekday    = weekday;
             forecast.code_d     = obj[@"cond"][@"code_d"];
             forecast.code_n     = obj[@"cond"][@"code_n"];
             forecast.txt_d      = obj[@"cond"][@"txt_d"];

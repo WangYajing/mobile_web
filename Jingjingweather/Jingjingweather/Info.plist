@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>静静天气</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -20,6 +20,17 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>456</string>
+	<key>NSLocationUsageDescription</key>
+	<string>djdjdjjdjd</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>123</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>STXINWEI.ttf</string>
+		<string>PingFang.ttc</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -34,16 +45,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>STXINWEI.ttf</string>
-		<string>PingFang.ttc</string>
-	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>123</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>456</string>
-	<key>NSLocationUsageDescription</key>
-	<string>djdjdjjdjd</string>
 </dict>
 </plist>
