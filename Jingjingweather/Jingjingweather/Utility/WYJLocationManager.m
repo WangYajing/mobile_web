@@ -52,6 +52,9 @@ static WYJLocationManager *_shardLocationManager = nil;
 }
 
 - (void)startUpdateLocation {
+    if (![CLLocationManager locationServicesEnabled]) {
+        
+    }
     [_locationManager startUpdatingLocation];
 }
 

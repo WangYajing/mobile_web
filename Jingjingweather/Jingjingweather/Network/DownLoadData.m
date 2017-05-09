@@ -52,10 +52,11 @@ static DownLoadData *instance = nil;
         realTimeInfo.visibility    = now[@"vis"];
         realTimeInfo.aqi           = aqi[@"aqi"];
         realTimeInfo.aqiQuality    = aqi[@"qlty"];
+        realTimeInfo.windDirection = now[@"wind"][@"dir"];
+        realTimeInfo.windScale     = now[@"wind"][@"sc"];
         
         NSArray *forecastArray = dict[@"daily_forecast"];
         NSMutableArray *forecasts = [NSMutableArray arrayWithCapacity:0];
-        NSString *weekday = [WYJDateManager weekday];
         
         [forecastArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             WYJForecast *forecast = [[WYJForecast alloc] init];

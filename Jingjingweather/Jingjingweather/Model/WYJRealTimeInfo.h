@@ -19,4 +19,7 @@
 @property (nonatomic, copy) NSString *visibility;
 @property (nonatomic, copy) NSString *aqi;
 @property (nonatomic, copy) NSString *aqiQuality;
+@property (nonatomic, copy) NSString *windDirection;
+@property (nonatomic, copy) NSString *windDeg;
+@property (nonatomic, copy) NSString *windScale;
 @end

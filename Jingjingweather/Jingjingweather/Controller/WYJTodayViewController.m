@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *conditionImageView;
 @property (weak, nonatomic) IBOutlet UILabel *dataLabel;
 @property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
+@property (weak, nonatomic) IBOutlet UILabel *windLabel;
 @property (weak, nonatomic) IBOutlet WYJAqiLabel *aqiLabel;
 @property (weak, nonatomic) IBOutlet WYJForecastView *forecastView;
 
@@ -63,6 +64,7 @@
     NSString *condCode = realTime.condCode;
     self.conditionImageView.image = [UIImage imageNamed:condCode];
     self.temperatureLabel.text = [NSString stringWithFormat:@"%@ ℃",realTime.temperature];
+    self.windLabel.text = [NSString stringWithFormat:@"%@ %@级",realTime.windDirection, realTime.windScale];
     self.conditionLabel.text = realTime.condition;
     [self.aqiLabel setColorAndTextWithAQI:realTime.aqi quality:realTime.aqiQuality];
 }
