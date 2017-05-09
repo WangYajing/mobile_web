@@ -7,7 +7,14 @@
 //
 
 #import "WYJDailyView.h"
-
+@interface WYJDailyView()
+@property (weak, nonatomic) IBOutlet UILabel *weekdayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tmp_maxLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tmp_minLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *cond_d;
+@property (weak, nonatomic) IBOutlet UIImageView *cond_n;
+@end
 @implementation WYJDailyView
 
 + (instancetype)dailyView {

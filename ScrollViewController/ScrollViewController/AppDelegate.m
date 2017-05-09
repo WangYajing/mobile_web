@@ -1,18 +1,14 @@
 //
 //  AppDelegate.m
-//  Jingjingweather
+//  ScrollViewController
 //
-//  Created by 王亚静 on 2017/4/27.
+//  Created by 王亚静 on 2017/5/9.
 //  Copyright © 2017年 Wong. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "MMDrawerController.h"
-#import "WYJCityViewController.h"
-#import "MMDrawerVisualState.h"
-//#import "MMExampleDrawerVisualStateManager.h"
+
 @interface AppDelegate ()
-@property (nonatomic, strong) MMDrawerController * drawerController;
 
 @end
 
@@ -20,39 +16,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-
-    UITableViewController *leftViewController = [[UITableViewController alloc] init];
-    WYJCityViewController *centerViewController = [[WYJCityViewController alloc] init];
-    
-    UINavigationController *navgationController = [[UINavigationController alloc] initWithRootViewController:centerViewController];
-    
-    UINavigationController *leftNavController = [[UINavigationController alloc] initWithRootViewController:leftViewController];
-    
-    self.drawerController = [[MMDrawerController alloc] initWithCenterViewController:navgationController leftDrawerViewController:leftNavController];
-    [self.drawerController setShowsShadow:NO];
-    [self.drawerController setRestorationIdentifier:@"MMDrawer"];
-//    [self.drawerController setMaximumRightDrawerWidth:20.0];
-    [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-    [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-    
-//    [self.drawerController
-//     setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
-//         MMDrawerControllerDrawerVisualStateBlock block;
-//         block = [[MMExampleDrawerVisualStateManager sharedManager]
-//                  drawerVisualStateBlockForDrawerSide:drawerSide];
-//         if(block){
-//             block(drawerController, drawerSide, percentVisible);
-//         }
-//     }];
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    UIColor * tintColor = [UIColor colorWithRed:29.0/255.0
-                                          green:173.0/255.0
-                                           blue:234.0/255.0
-                                          alpha:1.0];
-    [self.window setTintColor:tintColor];
-    [self.window setRootViewController:self.drawerController];
+    // Override point for customization after application launch.
     return YES;
 }
 
@@ -94,7 +58,7 @@
     // The persistent container for the application. This implementation creates and returns a container, having loaded the store for the application to it.
     @synchronized (self) {
         if (_persistentContainer == nil) {
-            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"Jingjingweather"];
+            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"ScrollViewController"];
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
                 if (error != nil) {
                     // Replace this implementation with code to handle the error appropriately.

@@ -1,5 +1,5 @@
 //
-//  WYJTodayViewController.h
+//  WYJCityViewController.h
 //  Jingjingweather
 //
 //  Created by 王亚静 on 2017/4/27.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WYJTodayViewController : UIViewController
+@interface WYJCityViewController : UIViewController
 
 @end

@@ -1,31 +1,25 @@
 //
-//  WYJTodayViewController.m
+//  WYJCityViewController.m
 //  Jingjingweather
 //
 //  Created by 王亚静 on 2017/4/27.
 //  Copyright © 2017年 Wong. All rights reserved.
 //
 
-#import "WYJTodayViewController.h"
+#import "WYJCityViewController.h"
 #import "WYJLocationManager.h"
 #import "DownLoadData.h"
 #import "WYJRealTimeInfo.h"
-#import "WYJAqiLabel.h"
 #import "WYJForecastView.h"
+#import "WYJTodayView.h"
 #import "WYJDateManager.h"
 
-@interface WYJTodayViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *conditionLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *conditionImageView;
-@property (weak, nonatomic) IBOutlet UILabel *dataLabel;
-@property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
-@property (weak, nonatomic) IBOutlet UILabel *windLabel;
-@property (weak, nonatomic) IBOutlet WYJAqiLabel *aqiLabel;
+@interface WYJCityViewController ()
+@property (weak, nonatomic) IBOutlet WYJTodayView *todayView;
 @property (weak, nonatomic) IBOutlet WYJForecastView *forecastView;
-
 @end
 
-@implementation WYJTodayViewController
+@implementation WYJCityViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,15 +27,7 @@
 
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     
-    NSString *weekday = [WYJDateManager weekday];
-    NSString *dateString = [WYJDateManager dateWithFormat:@"M.d"];
-    self.dataLabel.text = [NSString stringWithFormat:@"%@·%@",dateString,weekday];
-    self.dataLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
-    self.conditionLabel.font = [UIFont fontWithName:@"STXinwei" size:40];
-    self.temperatureLabel.font = [UIFont fontWithName:@"Verdana" size:26];
-    self.aqiLabel.layer.cornerRadius = 5;
-    self.aqiLabel.clipsToBounds = YES;
-
+   
     WYJLocationManager *manager = [WYJLocationManager sharedLocationManager];
     manager.updateLocationHandler = ^(NSError *error, NSDictionary *address) {
         if (!error) {
@@ -50,24 +36,15 @@
             self.navigationItem.title = subLocality;
             NSString *cityID = [subLocality substringToIndex:subLocality.length - 1];
             [DownLoadData getRealTimeDataWithBlock:^(NSArray *obj, NSError *error) {
-                WYJRealTimeInfo *realTime = obj[0];
+                self.todayView.realtimeInfo = obj[0];
                 self.forecastView.forecasts = obj[1];
-                [self refreshUIWithRealTimeInfo:realTime];
             } andCityID:cityID];
         }
     };
     [manager startUpdateLocation];
 }
 
-- (void)refreshUIWithRealTimeInfo:(WYJRealTimeInfo *)realTime {
-    
-    NSString *condCode = realTime.condCode;
-    self.conditionImageView.image = [UIImage imageNamed:condCode];
-    self.temperatureLabel.text = [NSString stringWithFormat:@"%@ ℃",realTime.temperature];
-    self.windLabel.text = [NSString stringWithFormat:@"%@ %@级",realTime.windDirection, realTime.windScale];
-    self.conditionLabel.text = realTime.condition;
-    [self.aqiLabel setColorAndTextWithAQI:realTime.aqi quality:realTime.aqiQuality];
-}
+
 
 //- (BOOL)prefersStatusBarHidden {
 //    return YES;
