@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface WYJCityViewController : UIViewController
-
+@property (nonatomic, assign) NSUInteger page;
+- (id)initWithPageNumber:(NSUInteger)page cityName:(NSString *)cityName;
 @end

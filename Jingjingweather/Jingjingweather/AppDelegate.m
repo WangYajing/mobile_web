@@ -10,6 +10,9 @@
 #import "MMDrawerController.h"
 #import "WYJCityViewController.h"
 #import "MMDrawerVisualState.h"
+#import "WYJCenterViewController.h"
+#import "WYJLeftViewController.h"
+
 //#import "MMExampleDrawerVisualStateManager.h"
 @interface AppDelegate ()
 @property (nonatomic, strong) MMDrawerController * drawerController;
@@ -21,30 +24,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-
-    UITableViewController *leftViewController = [[UITableViewController alloc] init];
-    WYJCityViewController *centerViewController = [[WYJCityViewController alloc] init];
-    
-    UINavigationController *navgationController = [[UINavigationController alloc] initWithRootViewController:centerViewController];
-    
+    // left
+    WYJLeftViewController *leftViewController = [[WYJLeftViewController alloc] init];
+    leftViewController.cityList = [NSMutableArray arrayWithArray:@[@"北京",@"上海"]];
     UINavigationController *leftNavController = [[UINavigationController alloc] initWithRootViewController:leftViewController];
     
-    self.drawerController = [[MMDrawerController alloc] initWithCenterViewController:navgationController leftDrawerViewController:leftNavController];
-    [self.drawerController setShowsShadow:NO];
+    // center
+    WYJCenterViewController *centerViewController = [[WYJCenterViewController alloc] init];
+    centerViewController.pageContent = @[@"北京",@"上海",@"广州"];
+    UINavigationController *centerNavController = [[UINavigationController alloc] initWithRootViewController:centerViewController];
+    
+    // drawer
+    self.drawerController = [[MMDrawerController alloc] initWithCenterViewController:centerNavController leftDrawerViewController:leftNavController];
+    
+//    [self.drawerController setShowsShadow:NO];
     [self.drawerController setRestorationIdentifier:@"MMDrawer"];
-//    [self.drawerController setMaximumRightDrawerWidth:20.0];
+    [self.drawerController setMaximumLeftDrawerWidth:200.0];
     [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     
-//    [self.drawerController
-//     setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
-//         MMDrawerControllerDrawerVisualStateBlock block;
-//         block = [[MMExampleDrawerVisualStateManager sharedManager]
-//                  drawerVisualStateBlockForDrawerSide:drawerSide];
-//         if(block){
-//             block(drawerController, drawerSide, percentVisible);
-//         }
-//     }];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     UIColor * tintColor = [UIColor colorWithRed:29.0/255.0

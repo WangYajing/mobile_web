@@ -15,33 +15,46 @@
 #import "WYJDateManager.h"
 
 @interface WYJCityViewController ()
+@property (nonatomic, copy) NSString *cityName;
+
 @property (weak, nonatomic) IBOutlet WYJTodayView *todayView;
 @property (weak, nonatomic) IBOutlet WYJForecastView *forecastView;
 @end
 
 @implementation WYJCityViewController
-
+- (id)initWithPageNumber:(NSUInteger)page cityName:(NSString *)cityName
+{
+//    if (self = [super initWithNibName:@"WYJCityViewController" bundle:nil])
+    if (self = [super init])
+    {
+        _page = page;
+        _cityName = cityName;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    
+//    self.navigationItem.title = self.cityName;
+    [DownLoadData getRealTimeDataWithBlock:^(NSArray *obj, NSError *error) {
+        self.todayView.realtimeInfo = obj[0];
+        self.forecastView.forecasts = obj[1];
+    } andCityID:self.cityName];
    
-    WYJLocationManager *manager = [WYJLocationManager sharedLocationManager];
-    manager.updateLocationHandler = ^(NSError *error, NSDictionary *address) {
-        if (!error) {
-            NSString *subLocality = address[@"SubLocality"];
-            NSString *city = address[@"City"];
-            self.navigationItem.title = subLocality;
-            NSString *cityID = [subLocality substringToIndex:subLocality.length - 1];
-            [DownLoadData getRealTimeDataWithBlock:^(NSArray *obj, NSError *error) {
-                self.todayView.realtimeInfo = obj[0];
-                self.forecastView.forecasts = obj[1];
-            } andCityID:cityID];
-        }
-    };
-    [manager startUpdateLocation];
+//    WYJLocationManager *manager = [WYJLocationManager sharedLocationManager];
+//    manager.updateLocationHandler = ^(NSError *error, NSDictionary *address) {
+//        if (!error) {
+//            NSString *subLocality = address[@"SubLocality"];
+//            NSString *city = address[@"City"];
+//            self.navigationItem.title = subLocality;
+//            NSString *cityID = [subLocality substringToIndex:subLocality.length - 1];
+//            [DownLoadData getRealTimeDataWithBlock:^(NSArray *obj, NSError *error) {
+//                self.todayView.realtimeInfo = obj[0];
+//                self.forecastView.forecasts = obj[1];
+//            } andCityID:cityID];
+//        }
+//    };
+//    [manager startUpdateLocation];
 }
 
 
