@@ -84,6 +84,7 @@
 		6FABDDCE1EB3129F009D5296 /* 900.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FABDD9B1EB3129F009D5296 /* 900.png */; };
 		6FABDDCF1EB3129F009D5296 /* 901.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FABDD9C1EB3129F009D5296 /* 901.png */; };
 		6FABDDD01EB3129F009D5296 /* 999.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FABDD9D1EB3129F009D5296 /* 999.png */; };
+		6FEF06231ECBCCD000722247 /* PageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF06221ECBCCD000722247 /* PageScrollView.m */; };
 		6FF27E801EC1786B0079A811 /* WYJTodayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF27E7F1EC1786B0079A811 /* WYJTodayView.m */; };
 		6FF27F0E1EC1CAEC0079A811 /* WYJCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF27F0D1EC1CAEC0079A811 /* WYJCenterViewController.m */; };
 		6FF27F161EC1F6CE0079A811 /* add1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FF27F151EC1F6CE0079A811 /* add1.png */; };
@@ -204,6 +205,8 @@
 		6FABDD9B1EB3129F009D5296 /* 900.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 900.png; sourceTree = "<group>"; };
 		6FABDD9C1EB3129F009D5296 /* 901.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 901.png; sourceTree = "<group>"; };
 		6FABDD9D1EB3129F009D5296 /* 999.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 999.png; sourceTree = "<group>"; };
+		6FEF06211ECBCCD000722247 /* PageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageScrollView.h; sourceTree = "<group>"; };
+		6FEF06221ECBCCD000722247 /* PageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageScrollView.m; sourceTree = "<group>"; };
 		6FF27E7E1EC1786B0079A811 /* WYJTodayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYJTodayView.h; sourceTree = "<group>"; };
 		6FF27E7F1EC1786B0079A811 /* WYJTodayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYJTodayView.m; sourceTree = "<group>"; };
 		6FF27F0C1EC1CAEC0079A811 /* WYJCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYJCenterViewController.h; sourceTree = "<group>"; };
@@ -262,6 +265,8 @@
 			isa = PBXGroup;
 			children = (
 				6F95E9791EBB2BF6005C8AA4 /* WYJAqiLabel.h */,
+				6FEF06211ECBCCD000722247 /* PageScrollView.h */,
+				6FEF06221ECBCCD000722247 /* PageScrollView.m */,
 				6F95E97A1EBB2BF6005C8AA4 /* WYJAqiLabel.m */,
 				6F95E9871EBCB24E005C8AA4 /* WYJForecastView.h */,
 				6F95E9881EBCB24E005C8AA4 /* WYJForecastView.m */,
@@ -738,6 +743,7 @@
 				6FF27F1B1EC1FDC50079A811 /* WYJLeftViewController.m in Sources */,
 				6FABDD5F1EB2DB07009D5296 /* DownLoadData.m in Sources */,
 				6F95E9891EBCB24E005C8AA4 /* WYJForecastView.m in Sources */,
+				6FEF06231ECBCCD000722247 /* PageScrollView.m in Sources */,
 				6FABDD1B1EB191F6009D5296 /* Jingjingweather.xcdatamodeld in Sources */,
 				6FABDD121EB191F6009D5296 /* AppDelegate.m in Sources */,
 				6FF27E801EC1786B0079A811 /* WYJTodayView.m in Sources */,

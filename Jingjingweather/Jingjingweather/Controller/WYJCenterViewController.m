@@ -9,10 +9,10 @@
 #import "WYJCenterViewController.h"
 #import "WYJCityViewController.h"
 #import "UIViewController+MMDrawerController.h"
-
-@interface WYJCenterViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate>
-@property (nonatomic, strong) UIPageViewController *pageViewController;
-//@property (nonatomic, strong) NSMutableArray *viewControllers;
+#import "PageScrollView.h"
+@interface WYJCenterViewController ()<UIScrollViewDelegate>
+@property (nonatomic, strong) PageScrollView *scrollView;
+@property (nonatomic, strong) NSMutableArray *viewControllers;
 
 
 @end
@@ -22,38 +22,69 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // pageViewController
+    NSMutableArray *controllers = [[NSMutableArray alloc] init];
+    for (NSUInteger i = 0; i < self.pageContent.count; i++)
+    {
+        [controllers addObject:[NSNull null]];
+    }
+    self.viewControllers = controllers;
+
+    
     self.view.backgroundColor = [UIColor blueColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.extendedLayoutIncludesOpaqueBars = YES;
-    [self addPageViewController];
+    [self setupScrollView];
     [self setupLeftMenuItem];
 }
+- (void)setupScrollView {
+    _scrollView = [[PageScrollView alloc] initWithFrame:self.view.bounds];
+    _scrollView.delegate = self;
+    _scrollView.pagingEnabled = YES;
+    _scrollView.bounces = NO;
+    _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width*self.pageContent.count, self.view.bounds.size.height);
+    [self.view addSubview:_scrollView];
+    [self loadScrollViewWithPage:0];
+    [self loadScrollViewWithPage:1];
+}
+- (void)loadScrollViewWithPage:(NSUInteger)page
+{
+    if (page >= self.pageContent.count)
+        return;
+    
+    WYJCityViewController *controller = [self.viewControllers objectAtIndex:page];
+    if ((NSNull *)controller == [NSNull null])
+    {
+        controller = [[WYJCityViewController alloc] initWithPageNumber:page cityName:self.pageContent[page]];
+        [self.viewControllers replaceObjectAtIndex:page withObject:controller];
+    }
+    
+    // add the controller's view to the scroll view
+    if (controller.view.superview == nil)
+    {
+        CGRect frame = self.scrollView.frame;
+        frame.origin.x = CGRectGetWidth(frame) * page;
+        frame.origin.y = 0;
+        controller.view.frame = frame;
+        
+        [self addChildViewController:controller];
+        [self.scrollView addSubview:controller.view];
+        [controller didMoveToParentViewController:self];
 
-- (void)addPageViewController {
-    NSDictionary *options = @{UIPageViewControllerOptionSpineLocationKey : @(UIPageViewControllerSpineLocationMin)};
-     _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
-    _pageViewController.view.frame = self.view.bounds;
-    _pageViewController.delegate = self;
-    _pageViewController.dataSource = self;
+    }
+}
+
+// at the end of scroll animation, reset the boolean used when scrolls originate from the UIPageControl
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    // switch the indicator when more than 50% of the previous/next page is visible
+    CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
+    NSUInteger page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
-    WYJCityViewController *controller1 = [self viewControllerAtIndex:0];
+    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
+    [self loadScrollViewWithPage:page - 1];
+    [self loadScrollViewWithPage:page];
+    [self loadScrollViewWithPage:page + 1];
     
-    [_pageViewController setViewControllers:@[controller1] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-    
-    __block UIScrollView *scrollView = nil;
-    [_pageViewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[UIScrollView class]]) {
-            scrollView = (UIScrollView*)obj;
-        }
-    }];
-//    if (scrollView) {
-//        UIPanGestureRecognizer *fakePan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(fake)];
-//        [scrollView addGestureRecognizer:fakePan];
-//        [scrollView.panGestureRecognizer requireGestureRecognizerToFail:fakePan];
-//    }
-    
-    [self addChildViewController:_pageViewController];
-    [self.view addSubview:_pageViewController.view];
 }
 
 - (void)setupLeftMenuItem {
@@ -107,17 +138,7 @@
     return [self viewControllerAtIndex:page];
 }
 
-//- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-//    return self.pageContent.count;
-//}
-//- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
-//    return 0;
-//}
 
-#pragma mark - UIPageViewControllerDelegate
-- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
-    
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
