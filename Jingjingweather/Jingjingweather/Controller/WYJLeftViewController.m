@@ -7,6 +7,8 @@
 //
 
 #import "WYJLeftViewController.h"
+#import "UIViewController+MMDrawerController.h"
+#import "WYJCenterViewController.h"
 
 @interface WYJLeftViewController ()
 
@@ -63,6 +65,12 @@ static NSString *kIndentifier = @"reuseIndetifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
+        
+        UINavigationController *nav = (UINavigationController *)self.mm_drawerController.centerViewController;
+        WYJCenterViewController *centerController = (WYJCenterViewController*)nav.viewControllers[0];
+        [centerController gotoPage:indexPath.row];
+    }];
 }
 
 /*

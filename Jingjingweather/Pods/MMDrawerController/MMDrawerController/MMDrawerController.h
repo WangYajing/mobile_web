@@ -228,7 +228,6 @@ typedef void (^MMDrawerControllerDrawerVisualStateBlock)(MMDrawerController * dr
  @return The newly-initialized drawer container view controller.
  */
 -(id)initWithCenterViewController:(UIViewController *)centerViewController leftDrawerViewController:(UIViewController *)leftDrawerViewController rightDrawerViewController:(UIViewController *)rightDrawerViewController;
--(void)panGestureCallback:(UIPanGestureRecognizer *)panGesture;
 /**
  Creates and initializes an `MMDrawerController` object with the specified center view controller, left drawer view controller.
  

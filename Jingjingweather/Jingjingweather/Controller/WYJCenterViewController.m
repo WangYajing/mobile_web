@@ -21,31 +21,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // pageViewController
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.extendedLayoutIncludesOpaqueBars = YES;
+    [self setupScrollView];
+    [self setupLeftMenuItem];
+}
+
+- (void)setupScrollView {
     NSMutableArray *controllers = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < self.pageContent.count; i++)
     {
         [controllers addObject:[NSNull null]];
     }
     self.viewControllers = controllers;
-
     
-    self.view.backgroundColor = [UIColor blueColor];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.extendedLayoutIncludesOpaqueBars = YES;
-    [self setupScrollView];
-    [self setupLeftMenuItem];
-}
-- (void)setupScrollView {
     _scrollView = [[PageScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.delegate = self;
     _scrollView.pagingEnabled = YES;
     _scrollView.bounces = NO;
-    _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width*self.pageContent.count, self.view.bounds.size.height);
+    _scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*self.pageContent.count, self.view.bounds.size.height);
     [self.view addSubview:_scrollView];
     [self loadScrollViewWithPage:0];
     [self loadScrollViewWithPage:1];
 }
+
 - (void)loadScrollViewWithPage:(NSUInteger)page
 {
     if (page >= self.pageContent.count)
@@ -73,18 +73,18 @@
     }
 }
 
-// at the end of scroll animation, reset the boolean used when scrolls originate from the UIPageControl
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    // switch the indicator when more than 50% of the previous/next page is visible
-    CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
-    NSUInteger page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+- (WYJCityViewController *)viewControllerAtIndex:(NSUInteger)index {
+    WYJCityViewController *contentViewController = [[WYJCityViewController alloc] initWithPageNumber:index cityName:self.pageContent[index]];
+    return contentViewController;
+}
+
+- (void)gotoPage:(NSUInteger)page {
     
-    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
+    self.navigationItem.title = self.pageContent[page];
     [self loadScrollViewWithPage:page - 1];
     [self loadScrollViewWithPage:page];
     [self loadScrollViewWithPage:page + 1];
-    
+    self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width*page, 0);
 }
 
 - (void)setupLeftMenuItem {
@@ -96,6 +96,7 @@
     UIColor *itemColor = [UIColor whiteColor];
     
     self.navigationItem.leftBarButtonItem.tintColor = itemColor;
+    self.navigationItem.title = self.pageContent[0];
 }
 
 
@@ -112,33 +113,21 @@
     return _pageContent;
 }
 
-- (WYJCityViewController *)viewControllerAtIndex:(NSUInteger)index {
-    WYJCityViewController *contentViewController = [[WYJCityViewController alloc] initWithPageNumber:index cityName:self.pageContent[index]];
-    return contentViewController;
-}
-
-#pragma mark - UIPageViewControllerDataSource
-
-- (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    NSUInteger page = ((WYJCityViewController *)viewController).page;
-    if (page == 0 || page == NSNotFound) {
-        return nil;
-    }
-    page--;
-    return [self viewControllerAtIndex:page];
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    // switch the indicator when more than 50% of the previous/next page is visible
+    CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
+    NSUInteger page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    // 设置导航栏标题
+    self.navigationItem.title = self.pageContent[page];
+    
+    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
+    [self loadScrollViewWithPage:page - 1];
+    [self loadScrollViewWithPage:page];
+    [self loadScrollViewWithPage:page + 1];
     
 }
-
-- (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    NSUInteger page = ((WYJCityViewController *)viewController).page;
-    if (page == self.pageContent.count-1 || page == NSNotFound) {
-        return nil;
-    }
-    page++;
-    return [self viewControllerAtIndex:page];
-}
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
