@@ -55,7 +55,8 @@ static WYJLocationManager *_shardLocationManager = nil;
     if (![CLLocationManager locationServicesEnabled]) {
         
     }
-    [_locationManager startUpdatingLocation];
+    [_locationManager requestAlwaysAuthorization];
+//    [_locationManager startUpdatingLocation];
 }
 
 #pragma mark - CLLocationManagerDelegate

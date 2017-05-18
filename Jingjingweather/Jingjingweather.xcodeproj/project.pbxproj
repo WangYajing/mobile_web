@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		66787DC832A543F4D5AC526C /* libPods-Jingjingweather.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39FCCCECC3008A5BE8ACF501 /* libPods-Jingjingweather.a */; };
 		6F5C729E1ECB1CE800D1CEF0 /* WYJCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5C729D1ECB1CE800D1CEF0 /* WYJCityViewController.xib */; };
+		6F901F8F1ECC57EB0027BBDA /* menu1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F901F8E1ECC57EB0027BBDA /* menu1.png */; };
 		6F95E97B1EBB2BF6005C8AA4 /* WYJAqiLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F95E97A1EBB2BF6005C8AA4 /* WYJAqiLabel.m */; };
 		6F95E97D1EBB693A005C8AA4 /* PingFang.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 6F95E97C1EBB693A005C8AA4 /* PingFang.ttc */; };
 		6F95E9861EBC2914005C8AA4 /* WYJForecast.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F95E9851EBC2914005C8AA4 /* WYJForecast.m */; };
@@ -113,6 +114,7 @@
 		39FCCCECC3008A5BE8ACF501 /* libPods-Jingjingweather.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Jingjingweather.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF7703C8992DB9FBB93A947 /* Pods-Jingjingweather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jingjingweather.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jingjingweather/Pods-Jingjingweather.debug.xcconfig"; sourceTree = "<group>"; };
 		6F5C729D1ECB1CE800D1CEF0 /* WYJCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WYJCityViewController.xib; sourceTree = "<group>"; };
+		6F901F8E1ECC57EB0027BBDA /* menu1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu1.png; sourceTree = "<group>"; };
 		6F95E9791EBB2BF6005C8AA4 /* WYJAqiLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYJAqiLabel.h; sourceTree = "<group>"; };
 		6F95E97A1EBB2BF6005C8AA4 /* WYJAqiLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYJAqiLabel.m; sourceTree = "<group>"; };
 		6F95E97C1EBB693A005C8AA4 /* PingFang.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = PingFang.ttc; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 		6F95E9981EBDC7DD005C8AA4 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				6F901F8E1ECC57EB0027BBDA /* menu1.png */,
 				6FF27F171EC1F7200079A811 /* add.png */,
 				6FF27F151EC1F6CE0079A811 /* add1.png */,
 				6F95E9991EBDC80F005C8AA4 /* bg_close_banner_top.png */,
@@ -613,6 +616,7 @@
 				6FABDDA11EB3129F009D5296 /* 103.png in Resources */,
 				6FABDDCB1EB3129F009D5296 /* 504.png in Resources */,
 				6FABDDBE1EB3129F009D5296 /* 313.png in Resources */,
+				6F901F8F1ECC57EB0027BBDA /* menu1.png in Resources */,
 				6F95E98E1EBCB44D005C8AA4 /* WYJDailyView.xib in Resources */,
 				6FABDDBD1EB3129F009D5296 /* 312.png in Resources */,
 				6FABDDBA1EB3129F009D5296 /* 309.png in Resources */,

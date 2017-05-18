@@ -31,7 +31,7 @@
     
     // center
     WYJCenterViewController *centerViewController = [[WYJCenterViewController alloc] init];
-    centerViewController.pageContent = @[@"北京",@"上海",@"广州"];
+    centerViewController.pageContent = [NSMutableArray arrayWithArray:@[@"北京",@"上海",@"广州"]];
     UINavigationController *centerNavController = [[UINavigationController alloc] initWithRootViewController:centerViewController];
     
     // drawer
@@ -39,7 +39,7 @@
     
 //    [self.drawerController setShowsShadow:NO];
     [self.drawerController setRestorationIdentifier:@"MMDrawer"];
-    [self.drawerController setMaximumLeftDrawerWidth:200.0];
+    [self.drawerController setMaximumLeftDrawerWidth:[UIScreen mainScreen].bounds.size.width*4/5];
     [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     

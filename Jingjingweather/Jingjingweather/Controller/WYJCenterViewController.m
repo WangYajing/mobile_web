@@ -88,10 +88,10 @@
 }
 
 - (void)setupLeftMenuItem {
-    //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add"] style:UIBarButtonItemStylePlain target:self action:@selector(showLeft)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu1"] style:UIBarButtonItemStylePlain target:self action:@selector(leftMenuItemPress:)];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.translucent = YES;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(leftMenuItemPress:)];
+    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(leftMenuItemPress:)];
 //    UIColor *ItemColor = [UIColor colorWithRed:0.49 green:0.29 blue:0.04 alpha:1.0];
     UIColor *itemColor = [UIColor whiteColor];
     

@@ -35,26 +35,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.navigationItem.title = self.cityName;
-    [DownLoadData getRealTimeDataWithBlock:^(NSArray *obj, NSError *error) {
-        self.todayView.realtimeInfo = obj[0];
-        self.forecastView.forecasts = obj[1];
-    } andCityID:self.cityName];
-   
-//    WYJLocationManager *manager = [WYJLocationManager sharedLocationManager];
-//    manager.updateLocationHandler = ^(NSError *error, NSDictionary *address) {
-//        if (!error) {
-//            NSString *subLocality = address[@"SubLocality"];
-//            NSString *city = address[@"City"];
-//            self.navigationItem.title = subLocality;
-//            NSString *cityID = [subLocality substringToIndex:subLocality.length - 1];
-//            [DownLoadData getRealTimeDataWithBlock:^(NSArray *obj, NSError *error) {
-//                self.todayView.realtimeInfo = obj[0];
-//                self.forecastView.forecasts = obj[1];
-//            } andCityID:cityID];
-//        }
-//    };
-//    [manager startUpdateLocation];
+    
+    if (self.page == 0) {
+        WYJLocationManager *manager = [WYJLocationManager sharedLocationManager];
+        manager.updateLocationHandler = ^(NSError *error, NSDictionary *address) {
+            if (!error) {
+                NSString *subLocality = address[@"SubLocality"];
+//                NSString *city = address[@"City"];
+                self.cityName = subLocality;
+                self.parentViewController.navigationItem.title = subLocality;
+                NSString *cityID = [subLocality substringToIndex:subLocality.length - 1];
+                [DownLoadData getRealTimeDataWithBlock:^(NSArray *obj, NSError *error) {
+                    self.todayView.realtimeInfo = obj[0];
+                    self.forecastView.forecasts = obj[1];
+                } andCityID:cityID];
+            }
+        };
+        [manager startUpdateLocation];
+    } else {
+        [DownLoadData getRealTimeDataWithBlock:^(NSArray *obj, NSError *error) {
+            self.todayView.realtimeInfo = obj[0];
+            self.forecastView.forecasts = obj[1];
+        } andCityID:self.cityName];
+    }
+    
 }
 
 

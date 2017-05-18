@@ -10,6 +10,6 @@
 
 @interface WYJCenterViewController : UIViewController
 
-@property (nonatomic, strong) NSArray *pageContent;
+@property (nonatomic, strong) NSMutableArray *pageContent;
 - (void)gotoPage:(NSUInteger)page;
 @end
