@@ -27,10 +27,8 @@
     [self initSearchController];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
 - (void)initSearchController {
     _searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
     _searchController.searchResultsUpdater = self;
@@ -42,8 +40,8 @@
     [_searchController.searchBar setShowsCancelButton:YES animated:YES];
     _searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x, self.searchController.searchBar.frame.origin.y, self.searchController.searchBar.frame.size.width, 64.0);
     self.tableView.tableHeaderView = _searchController.searchBar;
-
 }
+
 - (void)readCityList {
     NSString *fileName = [[NSBundle mainBundle] pathForResource:@"china-city-list" ofType:@"json"];
     NSData *date = [NSData dataWithContentsOfFile:fileName];
@@ -52,45 +50,46 @@
         _cityList = [NSJSONSerialization JSONObjectWithData:date options:0 error:&serializationError];
     }
 }
+
+#pragma mark - UIViewController life cycle
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSLog(@"%@",NSStringFromSelector(_cmd));
-    
 }
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     NSLog(@"%@",NSStringFromSelector(_cmd));
     self.searchController.active = YES;
-    
 }
 
 #pragma mark - UISearchControllerDelegate
+
 - (void)willPresentSearchController:(UISearchController *)searchController {
     NSLog(@"%@",NSStringFromSelector(_cmd));
-    
 }
 
 - (void)didPresentSearchController:(UISearchController *)searchController {
     NSLog(@"%@",NSStringFromSelector(_cmd));
     [self.searchController.searchBar becomeFirstResponder];
-    
 }
+
 - (void)willDismissSearchController:(UISearchController *)searchController {
     NSLog(@"%@",NSStringFromSelector(_cmd));
 }
+
 - (void)didDismissSearchController:(UISearchController *)searchController {
     NSLog(@"%@",NSStringFromSelector(_cmd));
-    
 }
 
-// Called after the search controller's search bar has agreed to begin editing or when 'active' is set to YES. If you choose not to present the controller yourself or do not implement this method, a default presentation is performed on your behalf.
 - (void)presentSearchController:(UISearchController *)searchController {
     NSLog(@"%@",NSStringFromSelector(_cmd));
-  
 }
 
 #pragma mark - UISearchBarDelegate
@@ -98,7 +97,6 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 #pragma mark - UITableViewDelegate
 
@@ -119,7 +117,6 @@
     if (searchString.length > 0) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains [c] %@",searchString];
         NSArray *filterdArray = [self.cityList filteredArrayUsingPredicate:predicate];
-        NSLog(@"===============%@",filterdArray);
         if (filterdArray.count > 0) {
             self.filterdCityList = [filterdArray copy];
         } else {
@@ -131,7 +128,6 @@
     }
     
     [self.tableView reloadData];
-    
 }
 
 #pragma mark - Table view data source
@@ -143,7 +139,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.filterdCityList.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseIdentifier" forIndexPath:indexPath];
@@ -158,9 +153,7 @@
         } else {
             cell.textLabel.text = self.filterdCityList[0];
         }
-        
-    } 
-    
+    }
     return cell;
 }
 
