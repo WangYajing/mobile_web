@@ -26,7 +26,6 @@
 
     // left
     WYJLeftViewController *leftViewController = [[WYJLeftViewController alloc] init];
-    leftViewController.cityList = [NSMutableArray arrayWithArray:@[@"北京",@"上海",@"广州"]];
     UINavigationController *leftNavController = [[UINavigationController alloc] initWithRootViewController:leftViewController];
     
     // center

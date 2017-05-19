@@ -44,11 +44,11 @@
 //                NSString *city = address[@"City"];
                 self.cityName = subLocality;
                 self.parentViewController.navigationItem.title = subLocality;
-                NSString *cityID = [subLocality substringToIndex:subLocality.length - 1];
+//                NSString *cityID = [subLocality substringToIndex:subLocality.length - 1];
                 [DownLoadData getRealTimeDataWithBlock:^(NSArray *obj, NSError *error) {
                     self.todayView.realtimeInfo = obj[0];
                     self.forecastView.forecasts = obj[1];
-                } andCityID:cityID];
+                } andCityID:subLocality];
             }
         };
         [manager startUpdateLocation];

@@ -9,9 +9,12 @@
 #import "WYJLeftViewController.h"
 #import "UIViewController+MMDrawerController.h"
 #import "WYJCenterViewController.h"
+#import "WYJSearchViewController.h"
+#import "WYJCityStore.h"
+
 
 @interface WYJLeftViewController ()
-
+@property (nonatomic, copy) NSMutableArray *cityList;
 @end
 static NSString *kIndentifier = @"reuseIndetifier";
 
@@ -24,6 +27,14 @@ static NSString *kIndentifier = @"reuseIndetifier";
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+- (NSArray *)cityList {
+    NSArray *cityArray = [WYJCityStore sharedStore].allCities;
+    return [cityArray copy];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -38,7 +49,8 @@ static NSString *kIndentifier = @"reuseIndetifier";
 }
 
 - (void)addCity {
-    
+    WYJSearchViewController *searchViewController = [[WYJSearchViewController alloc] init];
+    [self presentViewController:searchViewController animated:YES completion:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -63,8 +75,8 @@ static NSString *kIndentifier = @"reuseIndetifier";
     
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    cell.textLabel.text = self.cityList[indexPath.row];
-    
+    WYJCity *city = self.cityList[indexPath.row];
+    cell.textLabel.text = city.cityZh;
     return cell;
 }
 

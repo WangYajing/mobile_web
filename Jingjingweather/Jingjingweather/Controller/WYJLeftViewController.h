@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WYJLeftViewController : UITableViewController
-@property (nonatomic, copy) NSMutableArray *cityList;
+
 @end

@@ -6,16 +6,15 @@
 //  Copyright © 2017年 Wong. All rights reserved.
 //
 
-#import "WYJDiaryStore.h"
-#import "WYJDiaryItem.h"
-@interface WYJDiaryStore()
-@property (nonatomic) NSMutableArray *privateItems;
+#import "WYJCityStore.h"
+@interface WYJCityStore()
+@property (nonatomic) NSMutableArray *privateCities;
 @end
 
-@implementation WYJDiaryStore
+@implementation WYJCityStore
 
 + (instancetype)sharedStore {
-    static WYJDiaryStore *sharedStore = nil;
+    static WYJCityStore *sharedStore = nil;
     if (!sharedStore) {
         sharedStore = [[self alloc] initPrivate];
     }
@@ -32,38 +31,38 @@
 - (instancetype)initPrivate {
     self = [super init];
     if (self) {
-        _privateItems = [[NSMutableArray alloc] init];
-        WYJDiaryItem *diary = [[WYJDiaryItem alloc] initWithTitle:@"未命名新日记" content:@"调整内心,写点东西"];
-        [_privateItems addObject:diary];
+        _privateCities = [[NSMutableArray alloc] init];
+//        WYJDiaryItem *diary = [[WYJDiaryItem alloc] initWithTitle:@"未命名新日记" content:@"调整内心,写点东西"];
+//        [_privateItems addObject:diary];
     }
     return self;
 }
 
-- (NSArray*)allItems {
-    return [self.privateItems copy];
+- (NSArray *)allCities {
+    return [self.privateCities copy];
 }
 
-- (void)addDiary:(WYJDiaryItem *)diary {
-    [self.privateItems addObject:diary];
+- (void)addCity:(WYJCity *)city {
+    [self.privateCities addObject:city];
 }
 
-- (void)removeDiary:(WYJDiaryItem *)item {
-    [self.privateItems removeObjectIdenticalTo:item];
+- (void)removeCity:(WYJCity *)city {
+    [self.privateCities removeObjectIdenticalTo:city];
 }
 
-- (void)updateDiaryAtIndex:(NSInteger) index withDiary:(WYJDiaryItem *)diary  {
-    [self.privateItems replaceObjectAtIndex:index withObject:diary];
+- (void)updateCityAtIndex:(NSInteger) index withCity:(WYJCity *)city  {
+    [self.privateCities replaceObjectAtIndex:index withObject:city];
 }
 
-- (void)moveDiaryAtIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+- (void)moveCityAtIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
     if (fromIndex == toIndex) {
         return;
     }
     //得到要移动的对象的指针
-    WYJDiaryItem *item = self.privateItems[fromIndex];
+    WYJCity *item = self.privateCities[fromIndex];
     
-    [self.privateItems removeObjectAtIndex:fromIndex];
-    [self.privateItems insertObject:item atIndex:toIndex];
+    [self.privateCities removeObjectAtIndex:fromIndex];
+    [self.privateCities insertObject:item atIndex:toIndex];
 }
 
 @end
