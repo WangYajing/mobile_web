@@ -31,9 +31,16 @@
 - (instancetype)initPrivate {
     self = [super init];
     if (self) {
-        _privateCities = [[NSMutableArray alloc] init];
-//        WYJDiaryItem *diary = [[WYJDiaryItem alloc] initWithTitle:@"未命名新日记" content:@"调整内心,写点东西"];
-//        [_privateItems addObject:diary];
+        NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+        NSString *historyArchivePath = [docPath stringByAppendingPathComponent:@"history.dat"];
+        _privateCities = [NSKeyedUnarchiver unarchiveObjectWithFile:historyArchivePath];
+        if (!_privateCities || _privateCities.count == 0) {
+            WYJCity *defaultCity = [[WYJCity alloc] init];
+            defaultCity.cityZh = @"北京";
+            _privateCities = [NSMutableArray arrayWithCapacity:0];
+            [_privateCities addObject:defaultCity];
+        }
+        
     }
     return self;
 }
@@ -63,6 +70,15 @@
     
     [self.privateCities removeObjectAtIndex:fromIndex];
     [self.privateCities insertObject:item atIndex:toIndex];
+}
+
+- (void)saveHistoryCities {
+    NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *historyArchivePath = [docPath stringByAppendingPathComponent:@"history.dat"];
+    BOOL success = [NSKeyedArchiver archiveRootObject:_privateCities toFile:historyArchivePath];
+    if (success) {
+        NSLog(@"归档成功");
+    }
 }
 
 @end

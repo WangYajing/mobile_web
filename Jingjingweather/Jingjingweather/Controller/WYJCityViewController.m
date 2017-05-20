@@ -13,6 +13,8 @@
 #import "WYJForecastView.h"
 #import "WYJTodayView.h"
 #import "WYJDateManager.h"
+#import "WYJCity.h"
+#import "WYJCityStore.h"
 
 @interface WYJCityViewController ()
 @property (nonatomic, copy) NSString *cityName;
@@ -32,6 +34,7 @@
     }
     return self;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -42,7 +45,10 @@
             if (!error) {
                 NSString *subLocality = address[@"SubLocality"];
 //                NSString *city = address[@"City"];
-                self.cityName = subLocality;
+                WYJCity *city = [[WYJCity alloc] init];
+                city.cityZh = subLocality;
+                _cityName = subLocality;
+                [[WYJCityStore sharedStore] updateCityAtIndex:0 withCity:city];
                 self.parentViewController.navigationItem.title = subLocality;
 //                NSString *cityID = [subLocality substringToIndex:subLocality.length - 1];
                 [DownLoadData getRealTimeDataWithBlock:^(NSArray *obj, NSError *error) {
@@ -60,13 +66,6 @@
     }
     
 }
-
-
-
-//- (BOOL)prefersStatusBarHidden {
-//    return YES;
-//}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

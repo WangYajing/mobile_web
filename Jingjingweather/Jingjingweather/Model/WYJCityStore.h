@@ -17,4 +17,6 @@
 - (void)removeCity:(WYJCity *) city;
 - (void)moveCityAtIndex:(NSInteger) fromIndex toIndex:(NSInteger) toIndex;
 - (void)updateCityAtIndex:(NSInteger) index withCity:(WYJCity *)city;
+- (void)saveHistoryCities;
+
 @end

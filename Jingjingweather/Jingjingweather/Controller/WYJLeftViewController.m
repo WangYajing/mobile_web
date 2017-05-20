@@ -12,12 +12,11 @@
 #import "WYJSearchViewController.h"
 #import "WYJCityStore.h"
 
-
 @interface WYJLeftViewController ()
 @property (nonatomic, copy) NSMutableArray *cityList;
 @end
-static NSString *kIndentifier = @"reuseIndetifier";
 
+static NSString *kIndentifier = @"reuseIndetifier";
 @implementation WYJLeftViewController
 
 - (instancetype)init {
@@ -31,10 +30,12 @@ static NSString *kIndentifier = @"reuseIndetifier";
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
+
 - (NSArray *)cityList {
     NSArray *cityArray = [WYJCityStore sharedStore].allCities;
     return [cityArray copy];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -52,6 +53,7 @@ static NSString *kIndentifier = @"reuseIndetifier";
     WYJSearchViewController *searchViewController = [[WYJSearchViewController alloc] init];
     [self presentViewController:searchViewController animated:YES completion:nil];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -67,9 +69,7 @@ static NSString *kIndentifier = @"reuseIndetifier";
     return self.cityList.count;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kIndentifier forIndexPath:indexPath];
     
@@ -90,39 +90,37 @@ static NSString *kIndentifier = @"reuseIndetifier";
     }];
 }
 
-/*
-// Override to support conditional editing of the table view.
+#pragma mark - swipe to delete
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return [NSString stringWithFormat:@"删除"];
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        WYJCity *city = [WYJCityStore sharedStore].allCities[indexPath.row];
+        [[WYJCityStore sharedStore] removeCity:city];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
-*/
 
-/*
-// Override to support rearranging the table view.
+
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    [[WYJCityStore sharedStore] moveCityAtIndex:fromIndexPath.row toIndex:toIndexPath.row];
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the item to be re-orderable.
-    return YES;
+    return NO;
 }
-*/
 
 /*
 #pragma mark - Navigation

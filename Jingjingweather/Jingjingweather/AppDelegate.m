@@ -12,6 +12,7 @@
 #import "MMDrawerVisualState.h"
 #import "WYJCenterViewController.h"
 #import "WYJLeftViewController.h"
+#import "WYJCityStore.h"
 
 //#import "MMExampleDrawerVisualStateManager.h"
 @interface AppDelegate ()
@@ -30,7 +31,7 @@
     
     // center
     WYJCenterViewController *centerViewController = [[WYJCenterViewController alloc] init];
-    centerViewController.pageContent = [NSMutableArray arrayWithArray:@[@"北京",@"上海",@"广州"]];
+    centerViewController.pageContent = [WYJCityStore sharedStore].allCities;
     UINavigationController *centerNavController = [[UINavigationController alloc] initWithRootViewController:centerViewController];
     
     // drawer

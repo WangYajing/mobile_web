@@ -10,6 +10,9 @@
 #import "WYJCityViewController.h"
 #import "UIViewController+MMDrawerController.h"
 #import "PageScrollView.h"
+#import "WYJCity.h"
+#import "WYJCityStore.h"
+
 @interface WYJCenterViewController ()<UIScrollViewDelegate>
 @property (nonatomic, strong) PageScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray *viewControllers;
@@ -28,9 +31,14 @@
     [self setupLeftMenuItem];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self loadScrollViewWithPage:0];
+    [self loadScrollViewWithPage:1];
+}
 - (void)setupScrollView {
     NSMutableArray *controllers = [[NSMutableArray alloc] init];
-    for (NSUInteger i = 0; i < self.pageContent.count; i++)
+    for (NSUInteger i = 0; i < [WYJCityStore sharedStore].allCities.count; i++)
     {
         [controllers addObject:[NSNull null]];
     }
@@ -40,21 +48,31 @@
     _scrollView.delegate = self;
     _scrollView.pagingEnabled = YES;
     _scrollView.bounces = NO;
-    _scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*self.pageContent.count, self.view.bounds.size.height);
+    _scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*[WYJCityStore sharedStore].allCities.count, self.view.bounds.size.height);
     [self.view addSubview:_scrollView];
-    [self loadScrollViewWithPage:0];
-    [self loadScrollViewWithPage:1];
+    
 }
 
 - (void)loadScrollViewWithPage:(NSUInteger)page
 {
-    if (page >= self.pageContent.count)
+    if (page >= [WYJCityStore sharedStore].allCities.count)
         return;
     
+    // 添加新城市
+    if ([WYJCityStore sharedStore].allCities.count > self.viewControllers.count) {
+        _scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*[WYJCityStore sharedStore].allCities.count, self.view.bounds.size.height);
+        for (int i = 0; i < [WYJCityStore sharedStore].allCities.count - self.viewControllers.count; i ++) {
+            [self.viewControllers addObject:[NSNull null]];
+        }
+    }
+    
+
     WYJCityViewController *controller = [self.viewControllers objectAtIndex:page];
     if ((NSNull *)controller == [NSNull null])
     {
-        controller = [[WYJCityViewController alloc] initWithPageNumber:page cityName:self.pageContent[page]];
+        WYJCity *city = [WYJCityStore sharedStore].allCities[page];
+        NSString *cityName = city.cityZh;
+        controller = [[WYJCityViewController alloc] initWithPageNumber:page cityName:cityName];
         [self.viewControllers replaceObjectAtIndex:page withObject:controller];
     }
     
@@ -74,13 +92,15 @@
 }
 
 - (WYJCityViewController *)viewControllerAtIndex:(NSUInteger)index {
-    WYJCityViewController *contentViewController = [[WYJCityViewController alloc] initWithPageNumber:index cityName:self.pageContent[index]];
+    WYJCity *city = [WYJCityStore sharedStore].allCities[index];
+    NSString *cityName = city.cityZh;
+    WYJCityViewController *contentViewController = [[WYJCityViewController alloc] initWithPageNumber:index cityName:cityName];
     return contentViewController;
 }
 
 - (void)gotoPage:(NSUInteger)page {
-    
-    self.navigationItem.title = self.pageContent[page];
+    WYJCity *city = [WYJCityStore sharedStore].allCities[page];
+    self.navigationItem.title = city.cityZh;
     [self loadScrollViewWithPage:page - 1];
     [self loadScrollViewWithPage:page];
     [self loadScrollViewWithPage:page + 1];
@@ -96,7 +116,7 @@
     UIColor *itemColor = [UIColor whiteColor];
     
     self.navigationItem.leftBarButtonItem.tintColor = itemColor;
-    self.navigationItem.title = self.pageContent[0];
+//    self.navigationItem.title = self.pageContent[0];
 }
 
 
@@ -106,13 +126,6 @@
     
 }
 
-- (NSArray *)pageContent {
-    if (!_pageContent) {
-//        _pageContent = @[@"海淀",@"昌平",@"朝阳"];
-    }
-    return _pageContent;
-}
-
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
@@ -120,7 +133,8 @@
     CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
     NSUInteger page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     // 设置导航栏标题
-    self.navigationItem.title = self.pageContent[page];
+    WYJCity *city = [WYJCityStore sharedStore].allCities[page];
+    self.navigationItem.title = city.cityZh;
     
     // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
     [self loadScrollViewWithPage:page - 1];
