@@ -15,8 +15,7 @@
 
 @interface WYJCenterViewController ()<UIScrollViewDelegate>
 @property (nonatomic, strong) PageScrollView *scrollView;
-@property (nonatomic, strong) NSMutableArray *viewControllers;
-
+@property (nonatomic, strong) NSMutableArray *privateviewControllers;
 
 @end
 
@@ -33,16 +32,26 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self refreshScrollView];
+}
+
+- (void)refreshScrollView {
+    // 添加城市后 重新计算contentSize
+    _scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*[WYJCityStore sharedStore].allCities.count, self.view.bounds.size.height);
+    for (NSUInteger i = _privateviewControllers.count; i < [WYJCityStore sharedStore].allCities.count; i ++) {
+        [_privateviewControllers addObject:[NSNull null]];
+    }
     [self loadScrollViewWithPage:0];
     [self loadScrollViewWithPage:1];
 }
+
 - (void)setupScrollView {
     NSMutableArray *controllers = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < [WYJCityStore sharedStore].allCities.count; i++)
     {
         [controllers addObject:[NSNull null]];
     }
-    self.viewControllers = controllers;
+    self.privateviewControllers = controllers;
     
     _scrollView = [[PageScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.delegate = self;
@@ -53,42 +62,55 @@
     
 }
 
-- (void)loadScrollViewWithPage:(NSUInteger)page
-{
-    if (page >= [WYJCityStore sharedStore].allCities.count)
-        return;
+- (void)loadScrollViewWithPage:(NSUInteger)page {
     
-    // 添加新城市
-    if ([WYJCityStore sharedStore].allCities.count > self.viewControllers.count) {
-        _scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*[WYJCityStore sharedStore].allCities.count, self.view.bounds.size.height);
-        for (int i = 0; i < [WYJCityStore sharedStore].allCities.count - self.viewControllers.count; i ++) {
-            [self.viewControllers addObject:[NSNull null]];
+    if (page < [WYJCityStore sharedStore].allCities.count){
+        
+        WYJCityViewController *controller = [_privateviewControllers objectAtIndex:page];
+        if ((NSNull *)controller == [NSNull null]) {
+            WYJCity *city = [WYJCityStore sharedStore].allCities[page];
+            NSString *cityName = city.cityZh;
+            controller = [[WYJCityViewController alloc] initWithPageNumber:page cityName:cityName];
+            [_privateviewControllers replaceObjectAtIndex:page withObject:controller];
+        }
+        
+        // add the controller's view to the scroll view
+       
+        if (controller.view.superview == nil) {
+            CGRect frame = self.scrollView.frame;
+            frame.origin.x = CGRectGetWidth(frame) * page;
+            frame.origin.y = 0;
+            controller.view.frame = frame;
+            
+            [self addChildViewController:controller];
+            [self.scrollView addSubview:controller.view];
+            [controller didMoveToParentViewController:self];
+            
+        } else if (controller.view.frame.origin.x != self.scrollView.frame.size.width * page) {
+            CGRect frame = self.scrollView.frame;
+            frame.origin.x = CGRectGetWidth(frame) * page;
+            frame.origin.y = 0;
+            controller.view.frame = frame;
+            if (page == 0) {
+                self.navigationItem.title = ((WYJCityViewController *)controller).cityName;
+            }
         }
     }
-    
+}
 
-    WYJCityViewController *controller = [self.viewControllers objectAtIndex:page];
-    if ((NSNull *)controller == [NSNull null])
-    {
-        WYJCity *city = [WYJCityStore sharedStore].allCities[page];
-        NSString *cityName = city.cityZh;
-        controller = [[WYJCityViewController alloc] initWithPageNumber:page cityName:cityName];
-        [self.viewControllers replaceObjectAtIndex:page withObject:controller];
-    }
-    
-    // add the controller's view to the scroll view
-    if (controller.view.superview == nil)
-    {
-        CGRect frame = self.scrollView.frame;
-        frame.origin.x = CGRectGetWidth(frame) * page;
-        frame.origin.y = 0;
-        controller.view.frame = frame;
-        
-        [self addChildViewController:controller];
-        [self.scrollView addSubview:controller.view];
-        [controller didMoveToParentViewController:self];
+- (void)addViewController {
+    [_privateviewControllers addObject:[NSNull null]];
+}
 
-    }
+- (void)removeViewControllerAtIndex:(NSUInteger)index {
+    WYJCityViewController *controller = [_privateviewControllers objectAtIndex:index];
+    // 从父视图中移除
+    [controller.view removeFromSuperview];
+    // 从父控制器中移除
+    [controller willMoveToParentViewController:self];
+    [controller removeFromParentViewController];
+    // 从数组中移除
+    [_privateviewControllers removeObjectAtIndex:index];
 }
 
 - (WYJCityViewController *)viewControllerAtIndex:(NSUInteger)index {
@@ -116,7 +138,6 @@
     UIColor *itemColor = [UIColor whiteColor];
     
     self.navigationItem.leftBarButtonItem.tintColor = itemColor;
-//    self.navigationItem.title = self.pageContent[0];
 }
 
 

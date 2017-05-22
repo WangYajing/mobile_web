@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface WYJCenterViewController : UIViewController
-
-@property (nonatomic, strong) NSArray *pageContent;
+//@property (nonatomic, strong) NSArray *pageContent;
 - (void)gotoPage:(NSUInteger)page;
+- (void)refreshScrollView;
+- (void)addViewController;
+- (void)removeViewControllerAtIndex:(NSUInteger)index;
 @end

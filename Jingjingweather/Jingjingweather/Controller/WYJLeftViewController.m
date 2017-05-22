@@ -45,8 +45,18 @@ static NSString *kIndentifier = @"reuseIndetifier";
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    self.editButtonItem.title = @"编辑";
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCity)];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    if (editing) {
+        self.editButtonItem.title = @"完成";
+    } else {
+        self.editButtonItem.title = @"编辑";
+    }
 }
 
 - (void)addCity {
@@ -57,6 +67,11 @@ static NSString *kIndentifier = @"reuseIndetifier";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (WYJCenterViewController *)getCenterViewController {
+    UINavigationController *nav = (UINavigationController *)self.mm_drawerController.centerViewController;
+    return (WYJCenterViewController*)nav.viewControllers[0];
 }
 
 #pragma mark - Table view data source
@@ -84,8 +99,7 @@ static NSString *kIndentifier = @"reuseIndetifier";
     
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
         
-        UINavigationController *nav = (UINavigationController *)self.mm_drawerController.centerViewController;
-        WYJCenterViewController *centerController = (WYJCenterViewController*)nav.viewControllers[0];
+        WYJCenterViewController *centerController = [self getCenterViewController];
         [centerController gotoPage:indexPath.row];
     }];
 }
@@ -104,9 +118,17 @@ static NSString *kIndentifier = @"reuseIndetifier";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        // 删除数据
         WYJCity *city = [WYJCityStore sharedStore].allCities[indexPath.row];
         [[WYJCityStore sharedStore] removeCity:city];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        // 删除对应控制器
+        WYJCenterViewController *centerController = [self getCenterViewController];
+        NSInteger deletePage = indexPath.row;
+        [centerController removeViewControllerAtIndex:deletePage];
+        [centerController refreshScrollView];
+        
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }

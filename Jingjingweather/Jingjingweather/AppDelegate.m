@@ -31,7 +31,6 @@
     
     // center
     WYJCenterViewController *centerViewController = [[WYJCenterViewController alloc] init];
-    centerViewController.pageContent = [WYJCityStore sharedStore].allCities;
     UINavigationController *centerNavController = [[UINavigationController alloc] initWithRootViewController:centerViewController];
     
     // drawer

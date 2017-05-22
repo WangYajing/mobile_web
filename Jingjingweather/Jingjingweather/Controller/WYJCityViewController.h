@@ -10,5 +10,6 @@
 
 @interface WYJCityViewController : UIViewController
 @property (nonatomic, assign) NSUInteger page;
+@property (nonatomic, copy) NSString *cityName;
 - (id)initWithPageNumber:(NSUInteger)page cityName:(NSString *)cityName;
 @end

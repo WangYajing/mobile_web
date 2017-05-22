@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class WYJCenterViewController;
 @interface WYJLeftViewController : UITableViewController
-
+- (WYJCenterViewController *)getCenterViewController;
 @end

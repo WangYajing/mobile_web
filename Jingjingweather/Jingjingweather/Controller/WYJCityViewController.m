@@ -17,7 +17,6 @@
 #import "WYJCityStore.h"
 
 @interface WYJCityViewController ()
-@property (nonatomic, copy) NSString *cityName;
 
 @property (weak, nonatomic) IBOutlet WYJTodayView *todayView;
 @property (weak, nonatomic) IBOutlet WYJForecastView *forecastView;
@@ -31,6 +30,7 @@
     {
         _page = page;
         _cityName = cityName;
+        self.parentViewController.navigationItem.title = cityName;
     }
     return self;
 }

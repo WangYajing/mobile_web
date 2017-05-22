@@ -105,9 +105,7 @@
     WYJCity *city = [[WYJCity alloc] initWithCityDic:cityDict];
     [[WYJCityStore sharedStore] addCity:city];
     self.searchController.active = NO;
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UISearchResultsUpdating
