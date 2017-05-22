@@ -42,6 +42,7 @@
     self.temperatureLabel.font = [UIFont fontWithName:@"Verdana" size:26];
     self.aqiLabel.layer.cornerRadius = 5;
     self.aqiLabel.clipsToBounds = YES;
+    self.windLabel.font = [UIFont fontWithName:@"Verdana" size:18];
 
 }
 

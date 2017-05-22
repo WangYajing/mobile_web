@@ -29,6 +29,10 @@
     // self.clearsSelectionOnViewWillAppear = NO;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)initSearchController {
     _searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
     _searchController.searchResultsUpdater = self;
