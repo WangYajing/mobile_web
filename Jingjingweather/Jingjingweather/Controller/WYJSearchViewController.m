@@ -17,6 +17,10 @@
 @end
 
 @implementation WYJSearchViewController
+- (instancetype)init {
+    self = [super initWithStyle:UITableViewStylePlain];
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,15 +68,21 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSLog(@"%@",NSStringFromSelector(_cmd));
+    NSLog(@"%@-%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd));
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    NSLog(@"%@",NSStringFromSelector(_cmd));
+    NSLog(@"%@-%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd));
     self.searchController.active = YES;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    NSLog(@"%@-%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd));
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    NSLog(@"%@-%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd));
+}
 #pragma mark - UISearchControllerDelegate
 
 - (void)willPresentSearchController:(UISearchController *)searchController {
@@ -99,7 +109,10 @@
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"============================");
+    
+    }];
 }
 
 #pragma mark - UITableViewDelegate

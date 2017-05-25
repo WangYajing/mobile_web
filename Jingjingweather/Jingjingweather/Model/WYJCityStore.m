@@ -31,8 +31,8 @@
 - (instancetype)initPrivate {
     self = [super init];
     if (self) {
-        NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-        NSString *historyArchivePath = [docPath stringByAppendingPathComponent:@"history.dat"];
+        
+        NSString *historyArchivePath = [self cityArchivePath];
         _privateCities = [NSKeyedUnarchiver unarchiveObjectWithFile:historyArchivePath];
         if (!_privateCities || _privateCities.count == 0) {
             WYJCity *defaultCity = [[WYJCity alloc] init];
@@ -43,6 +43,13 @@
         
     }
     return self;
+}
+
+- (NSString *)cityArchivePath {
+    
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [documentDirectories firstObject];
+    return [documentDirectory stringByAppendingPathComponent:@"cities.archive"];
 }
 
 - (NSArray *)allCities {
@@ -72,13 +79,11 @@
     [self.privateCities insertObject:item atIndex:toIndex];
 }
 
-- (void)saveHistoryCities {
-    NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *historyArchivePath = [docPath stringByAppendingPathComponent:@"history.dat"];
-    BOOL success = [NSKeyedArchiver archiveRootObject:_privateCities toFile:historyArchivePath];
-    if (success) {
-        NSLog(@"归档成功");
-    }
+- (BOOL)saveHistoryCities {
+    
+    NSString *path = [self cityArchivePath];
+    return [NSKeyedArchiver archiveRootObject:_privateCities toFile:path];
+
 }
 
 @end

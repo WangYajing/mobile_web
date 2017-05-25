@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WYJCity : NSObject
+@interface WYJCity : NSObject <NSSecureCoding>
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *cityZh;
 @property (nonatomic, copy) NSString *cityEn;

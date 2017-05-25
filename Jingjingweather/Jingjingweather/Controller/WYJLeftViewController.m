@@ -28,7 +28,19 @@ static NSString *kIndentifier = @"reuseIndetifier";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    NSLog(@"%@-%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd));
     [self.tableView reloadData];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSLog(@"%@-%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd));
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    NSLog(@"%@-%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd));
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    NSLog(@"%@-%@",NSStringFromClass([self class]),NSStringFromSelector(_cmd));
 }
 
 - (NSArray *)cityList {
